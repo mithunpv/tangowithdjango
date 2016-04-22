@@ -1,0 +1,15 @@
+from django.conf.urls import url
+from . import views
+urlpatterns=[
+		url(r'^$',views.index,name='index'),
+		url(r'^about/$',views.about,name='about'),
+		url(r'^about1/$',views.about1,name='about1'),
+		url(r'^new/$',views.new,name='new'),
+		url(r'^new1/$',views.new1,name='new1'),
+		url(r'^page/$',views.page,name='page'),
+		url(r'^search/$',views.search,name='search'),
+		url(r'^search1/$',views.search1,name='search1'),
+		url(r'^contact/$',views.contact,name='contact'),
+		url(r'^contact1/$',views.contact1,name='contact1'),
+]
+

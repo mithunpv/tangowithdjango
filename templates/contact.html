@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Contact Form</title>
+		<style>
+		body{background-color: grey}
+		</style>	
+	</head>
+	
+	<body>
+		{% if error %}
+		<li>
+		{%for err in error %}
+			<ol>{{err}}</ol>
+		{% endfor  %}
+		</li>
+		{% endif %}
+		<h1>Contact me</h1>	
+		<form action="/rango/contact1/" method="POST" >
+		{% csrf_token %}
+		
+		<p>Name:<input type="text" name='name' value={{name}}></p>
+		<p>Email:<input type="text" name="email" value={{email}}></p>
+		<p>query:<textarea name="message" rows=10 cols=20 >{{message}}</textarea></p>
+		<p><input type="submit" value="Submit"/></p>
+	</body>
+</html>

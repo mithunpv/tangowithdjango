@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+                <title>django search</title>
+                <style>
+                #re {background-color : black }
+                body{ background-color : grey  }
+                </style>                
+        </head>
+
+	<body>
+		<h1>
+                <form action="/rango/search1/" method="GET">
+                        <p>Search:<input type="text" name="q"/></p>
+                        <input type="submit" value="SEARCH"/>
+                </form>
+                </h1>
+		<h1>u searched for {{value}}</h1>
+	
+	</body>
+</html>
