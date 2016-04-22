@@ -10,6 +10,6 @@ urlpatterns=[
 		url(r'^search/$',views.search,name='search'),
 		url(r'^search1/$',views.search1,name='search1'),
 		url(r'^contact/$',views.contact,name='contact'),
-	#	url(r'^contact1/$',views.contact1,name='contact1'),
+		url(r'^contact1/$',views.contact1,name='contact1'),
 ]
 
