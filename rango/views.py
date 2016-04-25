@@ -4,6 +4,8 @@ from django.template import RequestContext
 from django.core.mail import send_mail
 from models import *
 from django.conf import settings
+from rango.forms import *
+
 # Create your views here.
 
 def index(request):
@@ -118,3 +120,27 @@ def contact1(request):
 	send_mail(name,query,fromemail,toemail,fail_silently=False)	
 	return HttpResponseRedirect('/rango/new1/')
 
+
+
+def contacts(request):
+	context = RequestContext(request)
+	
+	if request.method=='POST':
+		form=ContactForm(request.POST)
+		if form.is_valid():
+			cd=form.cleaned_data
+			fromemail=settings.EMAIL_HOST_USER;
+        		if cd['email']:
+				toemail=[cd['email'],]
+			else:
+				toemail=['noreply@example.com']
+			name=cd['name']
+			message=cd['message']
+			send_mail(name,message,fromemail,toemail,fail_silently=False)
+			return HttpResponseRedirect('/rango/new1/')
+	else:
+		form = ContactForm(initial={'message': 'I love your site!'})
+	
+	return render(request, 'contactform.html', {'form': form})		
+		
+			
