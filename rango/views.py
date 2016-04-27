@@ -5,6 +5,8 @@ from django.core.mail import send_mail
 from models import *
 from django.conf import settings
 from rango.forms import *
+from django.contrib import auth
+
 
 # Create your views here.
 
@@ -142,5 +144,36 @@ def contacts(request):
 		form = ContactForm(initial={'message': 'I love your site!'})
 	
 	return render(request, 'contactform.html', {'form': form})		
-		
-			
+	
+
+def login(request):
+	context = RequestContext(request)	
+	if request.method=='POST':
+		form=LoginForm(request.POST)
+		if form.is_valid():
+			cd=form.cleaned_data
+			Username=cd['username']
+			Password=cd['password']
+			user = auth.authenticate(username=Username, password=Password)
+			if user is not None:
+				auth.login(request,user)
+				return HttpResponseRedirect('/rango/new1/')
+			else:
+				return HttpResponseRedirect('/rango/login/')
+	else:
+		form=LoginForm();
+	return render(request, 'loginform.html', {'form': form})
+
+def searching(request):
+	if request.method=="POST":
+		form=SearchForm(request.POST)
+		if form.is_valid():
+			cd =form.cleaned_data
+			sea=cd['search']
+			if sea is not None:
+				return HttpResponseRedirect("/rango/new1/")
+			else:
+				return HttpResponseRedirect("/rango/searching/")
+	else:
+		form=SearchForm();
+	return render(request,"searching.html",{'form':form})

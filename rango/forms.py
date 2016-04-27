@@ -20,3 +20,12 @@ class ContactForm(forms.Form):
 			raise forms.ValidationError("name correctly")
 
 		return name
+
+
+class LoginForm(forms.Form):
+	username=forms.CharField()
+	password=forms.CharField(widget=forms.PasswordInput())
+
+
+class SearchForm(forms.Form):
+	search=forms.CharField()	
