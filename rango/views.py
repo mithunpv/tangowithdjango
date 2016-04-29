@@ -6,9 +6,13 @@ from models import *
 from django.conf import settings
 from rango.forms import *
 from django.contrib import auth
-
-
+from django.views.generic import *
+from django.core import serializers
+from serializers import *
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
 # Create your views here.
+import json
 
 def index(request):
 	context = RequestContext(request)
@@ -31,12 +35,15 @@ def page(request):
 
 
 def about(request):
+
 	txt="hi rango"+"<a href="+"/rango/>INDEX</a>"
 	return HttpResponse(txt)
 
 def about1(request):
+	data=serializers.serialize('json',Category.objects.all())
+	return HttpResponse(data, content_type="json")
+
 	
-        return JsonResponse({"hi":"how"})
 
 def new(request):
 	
@@ -177,3 +184,26 @@ def searching(request):
 	else:
 		form=SearchForm();
 	return render(request,"searching.html",{'form':form})
+
+class StaticPage(TemplateView):
+	template_name="searching.html"
+
+
+def serialjson(request):
+
+	if request.method=="POST":
+		
+		form=SearchForm(request.POST)
+                if form.is_valid():
+                        cd =form.cleaned_data
+                        sea=cd['search']
+                        if sea is not None:
+				serial=PageSerializer(Page.objects.filter(title=sea),many=True)
+				content=JSONRenderer().render(serial.data)
+				content=json.loads(content)
+				return HttpResponse(content[0]['id'])
+	else:
+		form=SearchForm();
+
+		
+	return render(request,"searching.html",{'form':form})	

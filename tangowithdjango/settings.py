@@ -16,7 +16,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=nz(v8xay4y@y^jj2q=)_c1b56pmn%d(9^_smdk5sfhy++g)9='
 
@@ -36,6 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
+    'sslserver',
+    'django_crontab',
+    'rest_framework',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -143,4 +145,5 @@ EMAIL_HOST="smtp.gmail.com"
 EMAIL_HOST_USER="mithun19061987@gmail.com"
 EMAIL_HOST_PASSWORD="hotcat19061987"
 EMAIL_PORT=587
+
 
